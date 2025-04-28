@@ -42,10 +42,10 @@ The project will be structured to clearly separate the concerns of each service.
 
 The following content is a Work in Progress :
 
-## Step 1: Create the architecture 🧩
+## Step 1: Create the architecture
 Build the folders, dockerfiles, containers etc
 
-## Step 2: Configure MinIO 🗄️
+## Step 2: Configure MinIO
 Automatize buckets creation, buckets that DVC will use to store large files (data and models)
 MinIO interface should be running to easily check the buckets
 
