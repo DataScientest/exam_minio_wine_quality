@@ -4,7 +4,7 @@ Welcome to the MinIO exam!
 
 Here, we'll ask you to configure and implement various stages of an MLOps exosystem. 
 
-Through this project we'll work with a wine dataset 🍷 The primary goal is to orchestrate Docker containers, specifically one for DVC, one for MinIO, and one for MLflow, and to automate the entire process.
+The primary goal of this project is to orchestrate Docker containers, specifically one for DVC, one for MinIO, and one for MLflow, and to automate the entire process.
 
 First of all you need to start by forking and cloning the project.
 Now let's go through the different parts of this project.
