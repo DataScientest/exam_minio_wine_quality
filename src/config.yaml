@@ -1,0 +1,29 @@
+data_ingestion:
+  root_dir:  data/raw
+  source_URL: https://github.com/entbappy/Branching-tutorial/raw/master/winequality-data.zip
+  local_data_file: data/raw/data.zip
+  unzip_dir: data/raw
+
+data_validation:
+  root_dir: data
+  unzip_dir: data/raw/winequality-red.csv
+  STATUS_FILE: data/status.txt
+
+data_transformation: 
+  root_dir: data/processed
+  data_path: data/raw/winequality-red.csv
+
+model_trainer:
+  root_dir: models
+  X_train_path: data/processed/X_train.csv
+  X_test_path: data/processed/X_test.csv
+  y_train_path: data/processed/y_train.csv
+  y_test_path: data/processed/y_test.csv
+  model_name: model.joblib
+
+model_evaluation:
+  root_dir: metrics
+  X_test_path: data/processed/X_test.csv
+  y_test_path: data/processed/y_test.csv
+  model_path: models/model.joblib
+  metric_file_name: metrics/metrics.json
