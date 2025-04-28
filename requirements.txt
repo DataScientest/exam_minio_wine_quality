@@ -1,6 +1,6 @@
 dvc
 dvc[s3]
-mlflow==2.9.2
+mlflow==2.20.3
 pandas
 notebook
 numpy
