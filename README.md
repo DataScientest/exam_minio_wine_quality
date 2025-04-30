@@ -40,22 +40,118 @@ The project will be structured to clearly separate the concerns of each service.
 **Each folder will be attached to a Docker Container, meaning they'll all have their own     Dockerfile, requirements.txt and every file they need to work properly!**
 
 
-The following content is a Work in Progress :
+## Step 1: Setting up the Containerized Architecture
 
-## Step 1: Create the architecture
-Build the folders, dockerfiles, containers etc
+This fundamental step involves establishing the basic structure of your project and defining the initial configurations for containerizing each service.
 
-## Step 2: Configure MinIO
-Automatize buckets creation, buckets that DVC will use to store large files (data and models)
-MinIO interface should be running to easily check the buckets
+**Instructions:**
 
-## Step 3: Configure DVC
-Automatize DVC setup, link the remote storage to a MinIO bucket created in your MinIO container
-Test everything by running the pipeline at the start of the container and make sure everything is sotred in the MinIO buckets
+1.  **Project Structure:** Organize your workspace by creating the necessary directories and files for each component (MinIO, DVC, MLflow) as well as the main configuration files (`docker-compose.yml`, `Makefile`).
 
-## Step 4: Integrate MLflow
-MLflow interface to track experiments
-add an MLflow tracking of the training of your models with parameters and scores displayed on the UI
+2.  **Defining Docker Services:** In `docker-compose.yml`, declare the services corresponding to MinIO, DVC, and MLflow. For each service, specify the source of the Docker image (using a local `Dockerfile` that you will create).
+
+3.  **Creating Initial Dockerfiles:** For each service (MinIO, DVC, MLflow), write a `Dockerfile`.
+
+    * Choose an appropriate base image for each tool (e.g., an official image for MinIO, a Python image for DVC and MLflow).
+
+    * Ensure that each `Dockerfile` includes the necessary instructions to install the main tool (MinIO, DVC, MLflow) and its specific dependencies (particularly those required for interaction with S3-compatible storage).
+
+    * Expose the necessary ports for services that provide an interface (MinIO UI/API, MLflow UI).
+
+    * Define an entry point or a default command for each container.
+
+4.  **Managing Python Dependencies:** Identify and list the Python dependencies required for the DVC and MLflow services in separate `requirements.txt` files, which will be used during the build process of the corresponding Docker images.
+
+**Step Objective:** To have a clear project structure and functional `Dockerfile`s allowing you to build Docker images for each service, thus laying the groundwork for orchestration.
 
 
-Each step is modularized, making it easy to maintain, extend, and scale your Machine Learning pipeline. 
+## Step 2: Configuring and Automating MinIO
+
+This step focuses on getting your MinIO instance up and running and automating the creation of the storage resources needed by the other services.
+
+**Instructions:**
+
+1.  **MinIO Service Configuration in `docker-compose.yml`:**
+
+    * Define the access credentials (root user and password) for your MinIO instance using environment variables.
+
+    * Map the relevant ports of the MinIO container to your local machine to access the S3 API and the web user interface.
+
+    * Configure a persistent volume to ensure that the data stored in MinIO survives the container's lifecycle.
+
+2.  **Automating Bucket Creation:** Implement a mechanism to ensure that the storage buckets required by DVC and MLflow are created automatically when the MinIO container starts (or immediately after).
+
+    * This typically involves creating a script that uses a MinIO client (like `mc`) to interact with the running MinIO instance.
+
+    * Integrate the execution of this script into the MinIO container's startup process, ensuring it runs after the MinIO server is accessible.
+
+
+## Step 3: Configuring and Testing DVC
+
+This step aims to configure DVC to use your MinIO instance as remote storage for data and models, and to validate this configuration by running a simple pipeline.
+
+**Instructions:**
+
+**DVC Service Configuration in `docker-compose.yml`:**
+
+    * Define a dependency so that the DVC container starts after the MinIO container.
+
+    * Mount your local project's working directory (this repo) inside the DVC container.
+
+    * Configure the necessary environment variables for DVC (and the underlying S3 library) to authenticate and connect to your MinIO instance.
+
+    * Define the DVC container's startup command to initialize a DVC project and configure the remote storage pointing to the appropriate MinIO bucket.
+  
+    * Run the already existing pipeline and make sure everything is working as expected and that DVC uses your MinIO buckets as storage for large files.
+
+**Step Objective:** To have a functional DVC service configured to use MinIO as remote storage, capable of versioning files and executing a test pipeline, with artifacts stored persistently in MinIO.
+
+
+## Step 4: Integrating MLflow for Experiment Tracking
+
+This step involves configuring MLflow to use MinIO as storage for experiment artifacts and integrating MLflow tracking into a training script.
+
+**Instructions:**
+
+1.  **MLflow Service Configuration in `docker-compose.yml`:**
+
+    * Define a dependency so that the MLflow container starts after the MinIO container.
+
+    * Map the MLflow user interface port to your local machine.
+
+    * Configure the necessary environment variables for MLflow to authenticate and connect to your MinIO instance for artifact storage.
+
+    * Define the MLflow container's startup command to launch the MLflow tracking server, specifying the location of the tracking database (backend store) and the artifact root path, which should point to the appropriate MinIO bucket.
+
+    * Mount your local project's working directory (containing your training script) inside the MLflow container.
+
+2.  **Integrating MLflow Tracking into a Training Script:**
+
+    * Use the already existing DVC pipeline and integrate MLflow tracking to it.
+
+    * Use the MLflow APIs to start an experiment run.
+
+    * Within this run, log the hyperparameters used for training.
+
+    * Log the performance metrics obtained by the model (e.g., accuracy, losses).
+
+    * Save and log the trained model as an MLflow artifact.
+
+**Step Objective:** To have a functional MLflow service that tracks experiments, logs metadata and artifacts to MinIO, integrated in the DVC pipeline.
+
+
+## Final Step: Complete Orchestration and Automation
+
+Once each service is configured and interacts correctly with MinIO, the final objective is to orchestrate the entire pipeline and automate its execution.
+
+**Instructions:**
+
+1.  **Inter-service Dependencies:** Refine the dependencies between services in `docker-compose.yml` to ensure they start in the correct order.
+
+2.  **Workflow Automation:** Use the `Makefile` to define high-level commands (e.g., `make pipeline`) that will orchestrate the execution of the entire MLOps chain: start the services, execute the DVC pipeline (if necessary to prepare data/models), run the training script, etc.
+
+3.  **Cleanup:** Add commands to the `Makefile` to stop and remove Docker containers and volumes.
+
+**Step Objective:** To have a fully functional and automated MLOps ecosystem, where a single command triggers the execution of the entire pipeline, with data, models, and metadata managed by DVC, MinIO, and MLflow.
+
+Good luck with your exam!
