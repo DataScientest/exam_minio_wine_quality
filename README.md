@@ -93,7 +93,8 @@ This step aims to configure DVC to use your MinIO instance as remote storage for
 
 **Instructions:**
 
-**DVC Service Configuration in `docker-compose.yml`:**
+1.  **DVC Service Configuration in `docker-compose.yml`:**
+
     * Define a dependency so that the DVC container starts after the MinIO container.
 
     * Mount your local project's working directory (this repo) inside the DVC container.
