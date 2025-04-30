@@ -37,8 +37,9 @@ The project will be structured to clearly separate the concerns of each service.
 *   **DVC folder:** Configuration and setup for the DVC container.
 *   **MLflow folder:** Configuration and setup for the MLflow container.
 
-**Each folder will be attached to a Docker Container, meaning they'll all have their own     Dockerfile, requirements.txt and every file they need to work properly!**
+**Each folder will be attached to a Docker Container, meaning they'll all have their own Dockerfile, requirements.txt and every file they need to work properly!**
 
+# Instructions :
 
 ## Step 1: Setting up the Containerized Architecture
 
@@ -93,7 +94,6 @@ This step aims to configure DVC to use your MinIO instance as remote storage for
 **Instructions:**
 
 **DVC Service Configuration in `docker-compose.yml`:**
-
     * Define a dependency so that the DVC container starts after the MinIO container.
 
     * Mount your local project's working directory (this repo) inside the DVC container.
