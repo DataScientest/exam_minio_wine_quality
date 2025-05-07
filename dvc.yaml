@@ -1,46 +1,46 @@
 stages:
   data_ingestion:
-    cmd: python src/pipeline_steps/stage01_data_ingestion.py
+    cmd: python src/pipeline/pipeline_steps/stage01_data_ingestion.py
     deps:
-    - src/config.yaml
-    - src/pipeline_steps/stage01_data_ingestion.py
+    - src/pipeline/config.yaml
+    - src/pipeline/pipeline_steps/stage01_data_ingestion.py
     outs:
     - data/raw/winequality-red.csv
 
   data_validation:
-    cmd: python src/pipeline_steps/stage02_data_validation.py
+    cmd: python src/pipeline/pipeline_steps/stage02_data_validation.py
     deps:
-    - src/config.yaml
+    - src/pipeline/config.yaml
     - data/raw/winequality-red.csv
-    - src/pipeline_steps/stage02_data_validation.py
+    - src/pipeline/pipeline_steps/stage02_data_validation.py
     outs:
     - data/status.txt
   data_transformation:
-    cmd: python src/pipeline_steps/stage03_data_transformation.py
+    cmd: python src/pipeline/pipeline_steps/stage03_data_transformation.py
     deps:
-    - src/config.yaml
+    - src/pipeline/config.yaml
     - data/raw/winequality-red.csv
     - data/status.txt
-    - src/pipeline_steps/stage03_data_transformation.py
+    - src/pipeline/pipeline_steps/stage03_data_transformation.py
     outs:
     - data/processed/X_test.csv
     - data/processed/X_train.csv
     - data/processed/y_test.csv
     - data/processed/y_train.csv
   model_trainer:
-    cmd: python src/pipeline_steps/stage04_model_trainer.py
+    cmd: python src/pipeline/pipeline_steps/stage04_model_trainer.py
     deps:
     - data/processed/X_train.csv
     - data/processed/y_train.csv
-    - src/config.yaml
-    - src/pipeline_steps/stage04_model_trainer.py
+    - src/pipeline/config.yaml
+    - src/pipeline/pipeline_steps/stage04_model_trainer.py
   model_evaluation:
-    cmd: python src/pipeline_steps/stage05_model_evaluation.py
+    cmd: python src/pipeline/pipeline_steps/stage05_model_evaluation.py
     deps:
     - data/processed/X_test.csv
     - data/processed/y_test.csv
     - models/model.joblib
-    - src/config.yaml
-    - src/pipeline_steps/stage05_model_evaluation.py
+    - src/pipeline/config.yaml
+    - src/pipeline/pipeline_steps/stage05_model_evaluation.py
     outs:
     - metrics/metrics.json

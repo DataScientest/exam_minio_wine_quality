@@ -1,2 +1,5 @@
 /wq_env
+__pycache__
+main.py
+data/
 src/data_module_def/__pycache__/

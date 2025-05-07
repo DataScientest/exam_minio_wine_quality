@@ -18,6 +18,84 @@ This project demonstrates the integration of several key tools in the MLOps ecos
 *   **MLflow:** An open-source platform for managing the machine learning lifecycle, including experimentation, reproducibility, deployment, and a central model registry.
 *   **Docker:** A platform for building, shipping, and running applications in containers. It will be used to containerize each of the services (MinIO, DVC, MLflow).
 
+## Architecture
+
+```
+├── data
+│   ├── processed
+│   │   ├── X_test.csv
+│   │   ├── X_train.csv
+│   │   ├── y_test.csv
+│   │   └── y_train.csv
+│   ├── raw
+│   │   ├── data.zip
+│   │   └── winequality-red.csv
+│   └── status.txt
+├── docker
+│   ├── minio
+│   │   ├── Dockerfile
+│   │   └── init_minio.sh
+│   ├── mlflow
+│   │   ├── Dockerfile
+│   │   └── requirements.txt
+│   └── pipeline
+│       ├── Dockerfile
+│       └── init_dvc.sh
+├── logs
+│   └── logs.log
+├── metrics
+│   └── metrics.json
+├── models
+│   └── model.joblib
+├── notebooks
+│   └── workflow_steps.ipynb
+├── src
+│   ├── __init__.py
+│   ├── app
+│   │   └── app.py
+│   └── pipeline
+│       ├── __init__.py
+│       ├── common_utils.py
+│       ├── config.py
+│       ├── config.yaml
+│       ├── config_manager.py
+│       ├── custom_logger.py
+│       ├── data_module_def
+│       │   ├── __init__.py
+│       │   ├── data_ingestion.py
+│       │   ├── data_transformation.py
+│       │   ├── data_validation.py
+│       │   └── schema.yaml
+│       ├── entity.py
+│       ├── models_module_def
+│       │   ├── __init__.py
+│       │   ├── model_evaluation.py
+│       │   ├── model_trainer.py
+│       │   └── params.yaml
+│       └── pipeline_steps
+│           ├── __init__.py
+│           ├── prediction.py
+│           ├── stage01_data_ingestion.py
+│           ├── stage02_data_validation.py
+│           ├── stage03_data_transformation.py
+│           ├── stage04_model_trainer.py
+│           └── stage05_model_evaluation.py
+├── templates
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   └── results.html
+├── __init__.py
+├── .dvcignore
+├── .gitignore
+├── docker-compose.yaml
+├── dvc.lock
+├── dvc.yaml
+├── makefile
+├── README.md
+├── requirements.txt
+```
+
 ## Objectives
 
 *   **Containerization:** Package MinIO, DVC, and MLflow into separate Docker containers.

@@ -1,5 +1,5 @@
 import pandas as pd
-from src.config_manager import DataValidationConfig
+from pipeline.config_manager import DataValidationConfig
 
 class DataValidation:
     def __init__(self, config: DataValidationConfig):

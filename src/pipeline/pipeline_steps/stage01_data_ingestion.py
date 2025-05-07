@@ -5,9 +5,9 @@ from pathlib import Path
 parent_folder = str(Path(__file__).parent.parent.parent)
 sys.path.append(parent_folder)
 
-from custom_logger import logger
-from src.config_manager import ConfigurationManager
-from src.data_module_def.data_ingestion import DataIngestion
+from pipeline.config_manager import ConfigurationManager
+from pipeline.data_module_def.data_ingestion import DataIngestion
+from pipeline.custom_logger import logger
 
 # logging the parent directory
 logger.info(f"Parent folder: {parent_folder}")

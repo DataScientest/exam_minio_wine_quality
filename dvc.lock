@@ -1,14 +1,14 @@
 schema: '2.0'
 stages:
   data_ingestion:
-    cmd: python src/pipeline_steps/stage01_data_ingestion.py
+    cmd: python src/pipeline/pipeline_steps/stage01_data_ingestion.py
     deps:
     - path: src/config.yaml
       hash: md5
       md5: 6f3b6ae109aaacb645b0c22c3b91fd8f
       size: 816
       isexec: true
-    - path: src/pipeline_steps/stage01_data_ingestion.py
+    - path: src/pipeline/pipeline_steps/stage01_data_ingestion.py
       hash: md5
       md5: b31b74db29d74c52f397ddc1ab285ecf
       size: 1102
@@ -20,19 +20,19 @@ stages:
       size: 100951
       isexec: true
   data_validation:
-    cmd: python src/pipeline_steps/stage02_data_validation.py
+    cmd: python src/pipeline/pipeline_steps/stage02_data_validation.py
     deps:
     - path: data/raw/winequality-red.csv
       hash: md5
       md5: 6a883fd98624e18c0b7ce251f4fab4fb
       size: 100951
       isexec: true
-    - path: src/config.yaml
+    - path: src/pipeline/config.yaml
       hash: md5
       md5: 6f3b6ae109aaacb645b0c22c3b91fd8f
       size: 816
       isexec: true
-    - path: src/pipeline_steps/stage02_data_validation.py
+    - path: src/pipeline/pipeline_steps/stage02_data_validation.py
       hash: md5
       md5: de78f53b3cea8e100348041e28dfeaa6
       size: 983
@@ -44,7 +44,7 @@ stages:
       size: 23
       isexec: true
   data_transformation:
-    cmd: python src/pipeline_steps/stage03_data_transformation.py
+    cmd: python src/pipeline/pipeline_steps/stage03_data_transformation.py
     deps:
     - path: data/raw/winequality-red.csv
       hash: md5
@@ -56,12 +56,12 @@ stages:
       md5: 86e6a2f694c57a675b3e2da6b95ff9ba
       size: 23
       isexec: true
-    - path: src/config.yaml
+    - path: src/pipeline/config.yaml
       hash: md5
       md5: 6f3b6ae109aaacb645b0c22c3b91fd8f
       size: 816
       isexec: true
-    - path: src/pipeline_steps/stage03_data_transformation.py
+    - path: src/pipeline/pipeline_steps/stage03_data_transformation.py
       hash: md5
       md5: 3350883f9c952e9df292db4585d666b7
       size: 1372
@@ -88,7 +88,7 @@ stages:
       size: 2566
       isexec: true
   model_trainer:
-    cmd: python src/pipeline_steps/stage04_model_trainer.py
+    cmd: python src/pipeline/pipeline_steps/stage04_model_trainer.py
     deps:
     - path: data/processed/X_train.csv
       hash: md5
@@ -100,18 +100,18 @@ stages:
       md5: 4040613523475448ce5a6170c18e383e
       size: 2566
       isexec: true
-    - path: src/config.yaml
+    - path: src/pipeline/config.yaml
       hash: md5
       md5: 6f3b6ae109aaacb645b0c22c3b91fd8f
       size: 816
       isexec: true
-    - path: src/pipeline_steps/stage04_model_trainer.py
+    - path: src/pipeline/pipeline_steps/stage04_model_trainer.py
       hash: md5
       md5: f54d1a096accdeeeeee6665001ab130a
       size: 951
       isexec: true
   model_evaluation:
-    cmd: python src/pipeline_steps/stage05_model_evaluation.py
+    cmd: python src/pipeline/pipeline_steps/stage05_model_evaluation.py
     deps:
     - path: data/processed/X_test.csv
       hash: md5
@@ -133,7 +133,7 @@ stages:
       md5: 6f3b6ae109aaacb645b0c22c3b91fd8f
       size: 816
       isexec: true
-    - path: src/pipeline_steps/stage05_model_evaluation.py
+    - path: src/pipeline/pipeline_steps/stage05_model_evaluation.py
       hash: md5
       md5: d3fa586225992ed94b1d4fefff1e4fa7
       size: 995

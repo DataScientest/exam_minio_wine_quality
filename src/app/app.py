@@ -20,7 +20,7 @@ from cryptography.fernet import Fernet
 import jwt
 import numpy as np
 
-from src.pipeline_steps.prediction import PredictionPipeline
+from pipeline.pipeline_steps.prediction import PredictionPipeline
 
 app = FastAPI()
 

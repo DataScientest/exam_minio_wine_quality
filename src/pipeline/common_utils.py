@@ -1,7 +1,7 @@
 import os
 from box.exceptions import BoxValueError
 import yaml
-from custom_logger import logger
+from pipeline.custom_logger import logger
 import json
 import joblib
 from ensure import ensure_annotations

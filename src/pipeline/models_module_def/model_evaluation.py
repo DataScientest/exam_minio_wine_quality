@@ -7,8 +7,8 @@ import joblib
 from pathlib import Path
 from urllib.parse import urlparse
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-from src.entity import ModelEvaluationConfig
-from src.common_utils import save_json
+from pipeline.entity import ModelEvaluationConfig
+from pipeline.common_utils import save_json
 
 class ModelEvaluation:
     def __init__(self, config: ModelEvaluationConfig):

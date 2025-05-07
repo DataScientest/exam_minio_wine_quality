@@ -1,6 +1,6 @@
-from src.config import CONFIG_FILE_PATH, SCHEMA_FILE_PATH, PARAMS_FILE_PATH
-from src.common_utils import read_yaml, create_directories
-from src.entity import (DataIngestionConfig, 
+from pipeline.config import CONFIG_FILE_PATH, SCHEMA_FILE_PATH, PARAMS_FILE_PATH
+from pipeline.common_utils import read_yaml, create_directories
+from pipeline.entity import (DataIngestionConfig, 
                     DataValidationConfig, 
                     DataTransformationConfig, 
                     ModelTrainerConfig, 
