@@ -85,6 +85,10 @@ This project demonstrates the integration of several key tools in the MLOps ecos
 │   ├── login.html
 │   ├── register.html
 │   └── results.html
+├── tests
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── tests.py
 ├── __init__.py
 ├── .dvcignore
 ├── .gitignore
@@ -232,5 +236,25 @@ Once each service is configured and interacts correctly with MinIO, the final ob
 3.  **Cleanup:** Add commands to the `Makefile` to stop and remove Docker containers and volumes.
 
 **Step Objective:** To have a fully functional and automated MLOps ecosystem, where a single command triggers the execution of the entire pipeline, with data, models, and metadata managed by DVC, MinIO, and MLflow.
+
+
+## Tests
+
+To test your project, you can use the given Tests container. This will run the following pytest tests : 
+
+*  **Are the 'dvc-storage' and 'mlflow-artifacts' buckets created with MinIO ?**
+
+*  **Are the ML experiments done within the app tracked with mlflow ?**
+
+*  **Is the 'dcv-storage' bucket filled with content ?**
+
+*  **Are the mlflow artifacts stored in the 'mlflow-artifacts' bucket?**
+
+using
+```
+make tests
+```
+
+Also make sure to check if everything follows the subject using the UI of the different services.
 
 Good luck with your exam!
