@@ -255,4 +255,6 @@ using
 make tests
 ```
 
+Also make sure to check if everything follows the subject using the UI of the different services.
+
 Good luck with your exam!
