@@ -233,4 +233,22 @@ Once each service is configured and interacts correctly with MinIO, the final ob
 
 **Step Objective:** To have a fully functional and automated MLOps ecosystem, where a single command triggers the execution of the entire pipeline, with data, models, and metadata managed by DVC, MinIO, and MLflow.
 
+
+## Tests
+
+To test your project, you can use the given Tests container. This will run the following pytest tests : 
+
+*  **Are the 'dvc-storage' and 'mlflow-artifacts' buckets created with MinIO ?**
+
+*  **Are the ML experiments done within the app tracked with mlflow ?**
+
+*  **Is the 'dcv-storage' bucket filled with content ?**
+
+*  **Are the mlflow artifacts stored in the 'mlflow-artifacts' bucket?**
+
+using
+```
+make tests
+```
+
 Good luck with your exam!
