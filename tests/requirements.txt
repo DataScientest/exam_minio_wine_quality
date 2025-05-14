@@ -1,0 +1,6 @@
+pytest
+pytest-dependency
+dvc[s3]
+mlflow
+minio
+boto3
