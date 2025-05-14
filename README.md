@@ -85,6 +85,10 @@ This project demonstrates the integration of several key tools in the MLOps ecos
 │   ├── login.html
 │   ├── register.html
 │   └── results.html
+├── tests
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── tests.py
 ├── __init__.py
 ├── .dvcignore
 ├── .gitignore
